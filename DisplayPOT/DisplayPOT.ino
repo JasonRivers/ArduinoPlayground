@@ -1,19 +1,20 @@
 #include <Wire.h>
 
 // Setup Stuff
-int LED = 7;
-int BLED = 13;
+
+int LED6 = 7;
 int PushButton = 2;
 int I2CSlaveAddress = 10;
 int POTPin = A3;
+int threshold = 255;
 
 void setup ()
 {
   // start the Serial connection
   Serial.begin(9600);
-  pinMode(LED, OUTPUT);
-  pinMode(BLED, OUTPUT);
-  digitalWrite(LED, HIGH);  
+  pinMode(LED6, OUTPUT);
+  digitalWrite(LED6, LOW);  
+  
   // Start I2C
   Wire.begin(I2CSlaveAddress);
   Wire.onRequest(onI2CRequest);
@@ -31,11 +32,15 @@ void onI2CRequest()
 
 void loop ()
 {
-  digitalWrite(LED, HIGH);   // turn the LED on (HIGH is the voltage level)
-  digitalWrite(BLED, LOW);   
-  delay(1000);               // wait for a second
-  digitalWrite(LED, LOW);    // turn the LED off by making the voltage LOW
-  digitalWrite(BLED, HIGH);
-  delay(1000);               // wait for a second
-
+  int potVal = analogRead(POTPin);
+  if (potVal > 255)
+  {
+   digitalWrite(LED6, HIGH);   // turn the LED on (HIGH is the voltage level)
+  }else{
+    digitalWrite(LED6, LOW);    // turn the LED off by making the voltage LOW
+  }
+  
+  delay(50); // much more reliable results
+  
+  
 }
