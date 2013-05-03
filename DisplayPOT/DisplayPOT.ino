@@ -21,14 +21,14 @@ void setup ()
 }
 
 void onI2CRequest()
-{
-  Serial.print("Got I2C Request\r\n");
-  Serial.print("Sending POT Data\r\n");
-      int potVal = analogRead(POTPin);
-  Serial.println(potVal);
-  Wire.write(potVal);
+{ 
+  char buf[257];
+  int potVal = analogRead(POTPin);
+  int len = sprintf(&buf[1],"PV%d",potVal);
+  buf[0] = len;
+  Serial.println(len);
+  Wire.write(buf);
 }
-
 
 void loop ()
 {
@@ -41,6 +41,4 @@ void loop ()
   }
   
   delay(50); // much more reliable results
-  
-  
 }
