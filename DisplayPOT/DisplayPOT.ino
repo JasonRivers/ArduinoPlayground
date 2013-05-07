@@ -26,7 +26,6 @@ void onI2CRequest()
   int potVal = analogRead(POTPin);
   int len = sprintf(&buf[1],"PV%d",potVal);
   buf[0] = len;
-  Serial.println(len);
   Wire.write(buf);
 }
 
