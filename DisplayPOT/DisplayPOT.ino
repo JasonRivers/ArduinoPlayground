@@ -22,7 +22,7 @@ void setup ()
 
 void onI2CRequest()
 { 
-  char buf[257];
+  char buf[128];	// signed char upper limit + 1 for byte-count
   int potVal = analogRead(POTPin);
   int len = sprintf(&buf[1],"PV%d",potVal);
   buf[0] = len;
