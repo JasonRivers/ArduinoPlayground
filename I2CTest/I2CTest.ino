@@ -1,9 +1,9 @@
 #include <Wire.h>
 
 int IR = A3; // Infrared Sensor
-int LED = 7; // LED (Dah!)
+int LED = 13; // LED (Dah!)
 int I2C_ADDRESS = 4; //Address for [this] I2C slave
-char buf[10]; //create a binary buffer of 10 bytes
+char buf[257]; //create a binary buffer of 10 bytes
 
 
 void setup()
@@ -20,8 +20,10 @@ void RequestEvent()
 {
   Serial.println("RequestEvent"); // write RequestEvent on the Serial
   int IRVal = analogRead(IR);
-  sprintf(buf, "IR%u\n", IRVal);
+  int len = sprintf(&buf[1], "IR%u", IRVal);
+  buf[0] = len;
   Wire.write(buf); // send the character "1" over I2C
+  Serial.println(buf);
   digitalWrite(LED, LOW); // turn the LED off
 }
 
