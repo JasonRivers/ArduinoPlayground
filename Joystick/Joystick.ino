@@ -6,7 +6,7 @@
 
 #undef DEBUG;
 
-#define NUM_BUTTONS	14
+#define NUM_BUTTONS	40
 #define NUM_AXES	8	       // 8 axes, X, Y, Z, etc
 
 typedef struct joyReport_t {
